@@ -32,6 +32,15 @@ export function validateEntry(text: string): string {
   if (text !== text.trim()) {
     throw new Error("entry must not have leading or trailing whitespace");
   }
+  if (/ {2,}/.test(text)) {
+    throw new Error("entry must not contain double spaces");
+  }
+  if (!/[.!?]$/.test(text)) {
+    throw new Error("entry must end with terminal punctuation");
+  }
+  if (/https?:\/\/|www\./i.test(text)) {
+    throw new Error("entry must not contain a URL");
+  }
   return text;
 }
 
